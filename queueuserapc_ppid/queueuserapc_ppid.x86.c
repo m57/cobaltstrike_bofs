@@ -1,5 +1,5 @@
 #include <windows.h>
-#include "beacon.h"
+#include "../beacon.h"
 
 #define PROC_THREAD_ATTRIBUTE_PARENT_PROCESS  0x00020000
 

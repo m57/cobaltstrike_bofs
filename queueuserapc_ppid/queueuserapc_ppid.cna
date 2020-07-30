@@ -3,7 +3,7 @@ alias QueueUserAPC_PPID {
 
 	$barch  = barch($1);
 	
-	$handle = openf(script_resource("queueuserapc_ppid/queueuserapc_ppid. $+ $barch $+ .o"));
+	$handle = openf(script_resource("queueuserapc_ppid. $+ $barch $+ .o"));
 	$data   = readb($handle, -1);
 	closef($handle);
     
